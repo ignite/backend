@@ -10,9 +10,6 @@ import (
 	"github.com/ignite-hq/cli/ignite/pkg/clictx"
 )
 
-// TODO: add event/attribute blacklisting (to be able to exclude binary ones)
-// TODO: add logging support (add logs to the collector)
-
 func main() {
 	ctx := clictx.From(context.Background())
 

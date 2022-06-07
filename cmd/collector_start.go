@@ -34,7 +34,7 @@ func NewCollectorStart() *cobra.Command {
 	c.Flags().Duration(flagCollectTimeout, collector.DefaultTimeout, "Collect timeout")
 	c.Flags().StringP(flagDatabaseHost, "H", postgres.DefaultHost, "Database server hostname or IP")
 	c.Flags().StringP(flagDatabaseName, "d", "", "Name of the database where to store the data")
-	c.Flags().StringSliceP(flagDatabaseParams, "P", nil, "Extra database parameters (name=value,...)")
+	c.Flags().StringSliceP(flagDatabaseParams, "P", nil, "Extra database parameters [name=value,...]")
 	c.Flags().String(flagDatabasePassword, "", "Database user password")
 	c.Flags().UintP(flagDatabasePort, "p", postgres.DefaultPort, "Database server port")
 	c.Flags().StringP(flagDatabaseUser, "U", "", "Database user name")
