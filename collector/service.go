@@ -65,6 +65,8 @@ func (s Service) Run(ctx context.Context) error {
 
 LOOP:
 	for {
+		// TODO: implement a retry on error policy
+		// TODO: on error log the error
 		if err := s.collect(ctx); err != nil {
 			return err
 		}
