@@ -6,8 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ignite-hq/blockchain-backend/cmd"
 	"github.com/ignite-hq/cli/ignite/pkg/clictx"
+
+	"github.com/ignite-hq/backend/cmd"
 )
 
 func main() {
