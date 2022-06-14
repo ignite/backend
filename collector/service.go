@@ -4,8 +4,9 @@ import (
 	"context"
 	"time"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmosmetric"
-	"github.com/ignite-hq/cli/ignite/pkg/cosmosmetric/adapter"
+	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector"
+	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -34,13 +35,13 @@ func WithMinHeight(h int64) Option {
 	}
 }
 
-func NewService(db adapter.Adapter, client cosmosmetric.TXsCollecter, options ...Option) Service {
+func NewService(db adapter.Adapter, client cosmostxcollector.TXsCollecter, options ...Option) Service {
 	s := Service{
 		grace:     DefaultGrace,
 		timeout:   DefaultTimeout,
 		minHeight: DefaultMinHeight,
 		db:        db,
-		collector: cosmosmetric.NewCollector(db, client),
+		collector: cosmostxcollector.New(db, client),
 	}
 
 	for _, o := range options {
@@ -55,20 +56,23 @@ type Service struct {
 	timeout   time.Duration
 	minHeight int64
 	db        adapter.Adapter
-	collector cosmosmetric.Collector
+	collector cosmostxcollector.Collector
 }
 
 func (s Service) Run(ctx context.Context) error {
+	log.WithFields(log.Fields{
+		"backend": s.db.GetType(),
+	}).Debugf("Initializing data backend...")
+
 	if err := s.db.Init(ctx); err != nil {
 		return err
 	}
 
 LOOP:
 	for {
-		// TODO: implement a retry on error policy
-		// TODO: on error log the error
+		// TODO: implement a retry policy on collection fail
 		if err := s.collect(ctx); err != nil {
-			return err
+			log.Errorf("error collection TXs: %v", err)
 		}
 
 		select {

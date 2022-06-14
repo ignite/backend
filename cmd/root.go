@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"errors"
 	"strings"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmosmetric/adapter/postgres"
+	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	flag "github.com/spf13/pflag"
@@ -17,6 +19,18 @@ const (
 	flagDatabasePassword = "database-password"
 	flagDatabasePort     = "database-port"
 	flagDatabaseUser     = "database-user"
+	flagLogFormat        = "log-format"
+	flagLogLevel         = "log-level"
+)
+
+const (
+	defaultLogFormat = logFormatText
+	defaultLogLevel  = "info"
+)
+
+const (
+	logFormatJSON = "json"
+	logFormatText = "text"
 )
 
 // New creates a new root command for the CLI.
@@ -25,10 +39,18 @@ func New() *cobra.Command {
 		Use:           "ignite-backend",
 		SilenceUsage:  true,
 		SilenceErrors: true,
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 			initViper(cmd)
+
+			if err := initLogging(cmd); err != nil {
+				return err
+			}
+
+			return nil
 		},
 	}
+
+	c.PersistentFlags().AddFlagSet(flagSetLogging())
 
 	c.AddCommand(NewAPI())
 	c.AddCommand(NewCollector())
@@ -57,6 +79,45 @@ func initViper(cmd *cobra.Command) {
 			cmd.Flags().Set(f.Name, viper.GetString(name))
 		}
 	})
+}
+
+func initLogging(cmd *cobra.Command) error {
+	name, err := cmd.Flags().GetString(flagLogLevel)
+	if err != nil {
+		return err
+	}
+
+	level, err := log.ParseLevel(name)
+	if err != nil {
+		return err
+	}
+
+	log.SetLevel(level)
+
+	format, err := cmd.Flags().GetString(flagLogFormat)
+	if err != nil {
+		return err
+	}
+
+	switch format {
+	case logFormatJSON:
+		log.SetFormatter(&log.JSONFormatter{})
+	case logFormatText:
+		// Text is the default one for logrus
+	default:
+		return errors.New("invalid log format")
+	}
+
+	return nil
+}
+
+func flagSetLogging() *flag.FlagSet {
+	fs := flag.NewFlagSet("", flag.ContinueOnError)
+
+	fs.String(flagLogFormat, defaultLogFormat, "Log format [json|text]")
+	fs.String(flagLogLevel, defaultLogLevel, "Log level [trace|debug|info|warn|error|fatal|panic]")
+
+	return fs
 }
 
 func flagSetDatabase() *flag.FlagSet {
