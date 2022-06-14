@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package ignite.backend.api;
+
+option go_package = "github.com/ignite-hq/backend/api/pb";
+
+service Mapper {
+  rpc ChainsFromCoordinator(ChainsFromCoordinatorRequest) returns (ChainsFromCoordinatorResponse) {}
+  rpc CampaignsFromCoordinator(CampaignsFromCoordinatorRequest) returns (CampaignsFromCoordinatorResponse) {}
+  rpc ChainsFromValidatorAddress(ChainsFromValidatorAddressRequest) returns (ChainsFromValidatorAddressResponse) {}
+}
+
+message ChainsFromCoordinatorRequest {
+  uint64 coordinatorID = 1;
+}
+
+message ChainsFromCoordinatorResponse {
+  repeated uint64 launchIDs = 1;
+}
+
+message CampaignsFromCoordinatorRequest {
+  uint64 coordinatorID = 1;
+}
+
+message CampaignsFromCoordinatorResponse {
+  repeated uint64 campaignIDs = 1;
+}
+
+message ChainsFromValidatorAddressRequest {
+  string address = 1;
+}
+
+message ChainsFromValidatorAddressResponse {
+  repeated uint64 launchIDs = 1;
+}
