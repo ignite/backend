@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package ignite.backend.api;
 
+import 'api/page.proto';
+
 option go_package = "github.com/ignite-hq/backend/api/pb";
 
 service Mapper {
@@ -12,6 +14,7 @@ service Mapper {
 
 message ChainsFromCoordinatorRequest {
   uint64 coordinatorID = 1;
+  Page page = 2;
 }
 
 message ChainsFromCoordinatorResponse {
@@ -20,6 +23,7 @@ message ChainsFromCoordinatorResponse {
 
 message CampaignsFromCoordinatorRequest {
   uint64 coordinatorID = 1;
+  Page page = 2;
 }
 
 message CampaignsFromCoordinatorResponse {
@@ -28,6 +32,7 @@ message CampaignsFromCoordinatorResponse {
 
 message ChainsFromValidatorAddressRequest {
   string address = 1;
+  Page page = 2;
 }
 
 message ChainsFromValidatorAddressResponse {

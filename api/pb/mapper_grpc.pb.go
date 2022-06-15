@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: api/proto/mapper.proto
+// source: api/mapper.proto
 
 package pb
 
@@ -173,5 +173,5 @@ var Mapper_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/proto/mapper.proto",
+	Metadata: "api/mapper.proto",
 }

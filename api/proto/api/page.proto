@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package ignite.backend.api;
+
+option go_package = "github.com/ignite-hq/backend/api/pb";
+
+message Page {
+    uint32 size = 1;
+    uint32 number = 2;
+}
