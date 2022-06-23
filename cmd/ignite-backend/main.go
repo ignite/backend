@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ignite-hq/cli/ignite/pkg/clictx"
+	"github.com/ignite/cli/ignite/pkg/clictx"
 
-	"github.com/ignite-hq/backend/cmd"
+	"github.com/ignite/backend/cmd"
 )
 
 func main() {

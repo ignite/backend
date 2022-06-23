@@ -1,4 +1,4 @@
-MODULE = github.com/ignite-hq/backend
+MODULE = github.com/ignite/backend
 PROTO_FOLDER = api/proto
 BUILD_FOLDER = bin
 

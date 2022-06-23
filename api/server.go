@@ -3,13 +3,13 @@ package api
 import (
 	"context"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/query"
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/query/call"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/query"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/query/call"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/ignite-hq/backend/api/pb"
+	"github.com/ignite/backend/api/pb"
 )
 
 type server struct {
