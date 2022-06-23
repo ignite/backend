@@ -1,9 +1,9 @@
-module github.com/ignite-hq/backend
+module github.com/ignite/backend
 
 go 1.18
 
 require (
-	github.com/ignite-hq/cli v0.22.1
+	github.com/ignite/cli v0.22.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/pflag v1.0.5

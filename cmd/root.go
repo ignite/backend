@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"

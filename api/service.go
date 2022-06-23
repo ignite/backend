@@ -5,11 +5,11 @@ import (
 	"embed"
 	"net"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 
-	"github.com/ignite-hq/backend/api/pb"
+	"github.com/ignite/backend/api/pb"
 )
 
 //go:embed schemas/*

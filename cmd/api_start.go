@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/ignite-hq/backend/api"
+	"github.com/ignite/backend/api"
 	"github.com/spf13/cobra"
 )
 

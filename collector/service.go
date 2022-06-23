@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector"
-	"github.com/ignite-hq/cli/ignite/pkg/cosmostxcollector/adapter"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector"
+	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/adapter"
 	log "github.com/sirupsen/logrus"
 )
 

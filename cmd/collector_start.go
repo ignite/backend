@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/ignite-hq/cli/ignite/pkg/cosmosclient"
+	"github.com/ignite/cli/ignite/pkg/cosmosclient"
 	"github.com/spf13/cobra"
 
-	"github.com/ignite-hq/backend/collector"
+	"github.com/ignite/backend/collector"
 )
 
 const (
