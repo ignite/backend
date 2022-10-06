@@ -70,9 +70,9 @@ func (s Service) Run(ctx context.Context) error {
 
 LOOP:
 	for {
-		// TODO: implement a retry policy on collection fail
+		// TODO: implement a retry policy on collection fail (increase grace)?
 		if err := s.collect(ctx); err != nil {
-			log.Errorf("error collection TXs: %v", err)
+			log.Errorf("error collecting TXs: %v", err)
 		}
 
 		select {

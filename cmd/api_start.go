@@ -34,10 +34,7 @@ func apiStartHandler(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	service := api.NewService(
-		db,
-		api.WithAddress(addr),
-	)
+	service := api.NewService(db, api.WithAddress(addr))
 
 	return service.Run(cmd.Context())
 }
