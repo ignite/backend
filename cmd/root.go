@@ -13,6 +13,9 @@ import (
 )
 
 const (
+	defaultLogFormat = logFormatText
+	defaultLogLevel  = "info"
+
 	flagDatabaseHost     = "database-host"
 	flagDatabaseName     = "database-name"
 	flagDatabaseParams   = "database-params"
@@ -21,14 +24,7 @@ const (
 	flagDatabaseUser     = "database-user"
 	flagLogFormat        = "log-format"
 	flagLogLevel         = "log-level"
-)
 
-const (
-	defaultLogFormat = logFormatText
-	defaultLogLevel  = "info"
-)
-
-const (
 	logFormatJSON = "json"
 	logFormatText = "text"
 )
@@ -60,7 +56,7 @@ func New() *cobra.Command {
 
 func initViper(cmd *cobra.Command) {
 	// Prepare Viper to read values from the environment
-	viper.SetEnvPrefix("BCB")
+	viper.SetEnvPrefix("IGN")
 	viper.AutomaticEnv()
 
 	// Initialize the flags with the values setted in the environment.
