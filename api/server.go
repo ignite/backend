@@ -5,7 +5,6 @@ import (
 
 	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/adapter/postgres"
 	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/query"
-	"github.com/ignite/cli/ignite/pkg/cosmostxcollector/query/call"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -21,15 +20,17 @@ type server struct {
 func (s server) ChainsFromValidatorAddress(ctx context.Context, req *pb.ChainsFromValidatorAddressRequest) (*pb.ChainsFromValidatorAddressResponse, error) {
 	page := req.GetPage()
 
-	// Create a call query to select the launch IDs from a custom database view
-	c := call.New("launch_validator", call.WithFields("launch_id"))
-	qry := query.
-		NewCall(c).
-		AppendFilters(
+	// Create a query to select the launch IDs from a custom database view
+	qry := query.New(
+		"launch_validator",
+		query.Fields("launch_id"),
+		query.WithFilters(
 			postgres.NewFilter("address", req.GetAddress()),
-		).
-		WithPageSize(page.GetSize()).
-		AtPage(page.GetNumber())
+		),
+		query.WithPageSize(page.GetSize()),
+		query.AtPage(page.GetNumber()),
+		query.SortByFields(query.SortOrderAsc, "launch_id"),
+	)
 
 	// Execute the query
 	cr, err := s.db.Query(ctx, qry)
@@ -58,15 +59,17 @@ func (s server) ChainsFromValidatorAddress(ctx context.Context, req *pb.ChainsFr
 func (s server) ChainsFromCoordinator(ctx context.Context, req *pb.ChainsFromCoordinatorRequest) (*pb.ChainsFromCoordinatorResponse, error) {
 	page := req.GetPage()
 
-	// Create a call query to select the launch IDs from a custom database view
-	c := call.New("launch_chain_created", call.WithFields("launch_id"))
-	qry := query.
-		NewCall(c).
-		AppendFilters(
+	// Create a query to select the launch IDs from a custom database view
+	qry := query.New(
+		"launch_chain_created",
+		query.Fields("launch_id"),
+		query.WithFilters(
 			postgres.NewFilter("coordinator_id", req.GetCoordinatorID()),
-		).
-		WithPageSize(page.GetSize()).
-		AtPage(page.GetNumber())
+		),
+		query.WithPageSize(page.GetSize()),
+		query.AtPage(page.GetNumber()),
+		query.SortByFields(query.SortOrderAsc, "launch_id"),
+	)
 
 	// Execute the query
 	cr, err := s.db.Query(ctx, qry)
@@ -95,15 +98,17 @@ func (s server) ChainsFromCoordinator(ctx context.Context, req *pb.ChainsFromCoo
 func (s server) CampaignsFromCoordinator(ctx context.Context, req *pb.CampaignsFromCoordinatorRequest) (*pb.CampaignsFromCoordinatorResponse, error) {
 	page := req.GetPage()
 
-	// Create a call query to select the campaign IDs from a custom database view
-	c := call.New("campaign_campaign_created", call.WithFields("campaign_id"))
-	qry := query.
-		NewCall(c).
-		AppendFilters(
+	// Create a query to select the campaign IDs from a custom database view
+	qry := query.New(
+		"campaign_campaign_created",
+		query.Fields("campaign_id"),
+		query.WithFilters(
 			postgres.NewFilter("coordinator_id", req.GetCoordinatorID()),
-		).
-		WithPageSize(page.GetSize()).
-		AtPage(page.GetNumber())
+		),
+		query.WithPageSize(page.GetSize()),
+		query.AtPage(page.GetNumber()),
+		query.SortByFields(query.SortOrderAsc, "campaign_id"),
+	)
 
 	// Execute the query
 	cr, err := s.db.Query(ctx, qry)
