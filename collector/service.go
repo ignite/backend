@@ -2,6 +2,7 @@ package collector
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/ignite/cli/ignite/pkg/cosmostxcollector"
@@ -101,7 +102,8 @@ func (s Service) collect(parent context.Context) error {
 		fromHeight += 1
 	}
 
-	if err := s.collector.Collect(ctx, fromHeight); err != nil {
+	err = s.collector.Collect(ctx, fromHeight)
+	if err != nil && !errors.Is(err, context.Canceled) {
 		return err
 	}
 
