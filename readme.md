@@ -1,6 +1,6 @@
 # Ignite Backend
 ​
-Ignite Backend is a simple backend solution that allows to index and retrieve data from a Cosmos blockchain through emitted events.
+Ignite Backend is a simple backend solution that allows indexing and retrieving data from a Cosmos blockchain through emitted events.
 
 ## Requirements
 ​
@@ -13,7 +13,7 @@ Ignite Backend is a simple backend solution that allows to index and retrieve da
 ​
 The backend requires a PostgreSQL database server running.
 ​
-First create a "backend" database:
+First, create a "backend" database:
 ​
 ```bash
 createdb --no-password backend
@@ -33,7 +33,7 @@ bin/ignite-backend collector start --database-name backend --rpc-address IGNITE_
 ​
 Once the service is run it will keep collecting transactions as new blocks are generated.
 ​
-Finally run the `api` service to start the gRPC server:
+Finally, run the `api` service to start the gRPC server:
 ​
 ```bash
 bin/ignite-backend api start --database-name backend -P sslmode=disable --log-level debug
